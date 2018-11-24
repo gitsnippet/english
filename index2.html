@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+p{
+    margin:50px auto;
+    text-align:center;
+}
+table{
+    margin:100px auto;
+    border:2px solid red;
+    width:800px;
+}
+tr,td{
+
+    border:1px solid black;
+    text-align:center;
+}   
+input[name="source"]{
+    width:90%;
+}
+    </style>
+</head>
+<body>
+    <p>英语学习</p>
+    <form>
+    <table>
+        <tr>
+            <td>日期</td>
+            <td><input type='text' name="date"></td>
+            <td><span id="dateMsg">格式 0000-00-00</span></td>
+        </tr>
+        <tr>
+            <td>类型</td>
+            <td>
+            <select name="type">
+                <option value="word">word</option>
+                <option value="phase">phrase</option>
+                <option value="sentence">sentence</option>
+                <option value="grammar">grammar</option>
+                <option value="reading material">reading material</option>
+            </select>
+        </td>
+            <td><span id="typeMsg">word phrase sentence grammar</span></td>
+        </tr>
+        <tr>
+            <td>内容或标题</td>
+            <td><textarea  name='content' cols="80" rows="8" id="content"></textarea></td>
+            <td><span id="contentMsg">500字以内,reading material对应标题</span></td>
+        </tr>
+        <tr>
+            <td>含义或要点</td>
+            <td><textarea  name='meaning' cols="80" rows="8" id="meaning"></textarea></td>
+            <td><span id="meaningMsg">reading material 写明知识点</span></td>
+        </tr>
+        <tr>
+            <td>来源</td>
+            <td><textarea  name='source' cols="80" rows="8" id="source"></textarea></td>
+            <td><span id="sourceMsg">写明来源，字典 url链接</span></td>
+        </tr>
+        <tr>
+            <td colspan="3"><input type="button" value="submit" id="submit"></td>
+        </tr>
+    </table>
+    </form>
+    <p id="prompt">testme</p>
+    <script>
+    
+    function callback() { 
+    }
+
+    function sendData()
+    {
+        var formData = new FormData( document.querySelector("form") );
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("post", "accessItem.php",true); 
+        xmlHttp.send(formData); 
+        xmlHttp.onreadystatechange = function(){        
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){ 
+            var cookies = document.cookie;
+            var list = cookies.split("; ");         
+            for(var i = 0; i < list.length; i++) {
+                arr = list[i].split("=");  
+                if(arr[0] == "flag_update"){
+                    data = xmlHttp.responseText;
+                    console.log(data);
+                    console.log(JSON.parse(data));
+                    tmp_meaning = document.getElementById("meaning").innerHTML ;
+                    data["meaning"] = data["meaning"] + "\n" + tmp_meaning;
+                    document.getElementById("meaning").innerHTML = data["meaning"];
+                    tmp_source = document.getElementById("source").innerHTML ;
+                    data["source"] = data["source"] + "\n" + tmp_source;
+                    document.getElementById("source").innerHTML = data["source"];
+                    document.getElementById("prompt").innerHTML =  "已经合并已有的内容，请确认无误后，再次点击submit"       
+                    return 0;
+                }
+            }
+            document.getElementById("submit").value = "changed";
+            document.getElementById("submit").id = "changed";
+            document.getElementById("prompt").innerHTML = xmlHttp.responseText;
+            ob.removeEventListener("click",sendData);
+        }
+        }
+    }
+
+    ob = document.getElementById("submit"); 
+    ob.addEventListener("click",sendData)
+    
+    </script>
+</body>
+</html>
