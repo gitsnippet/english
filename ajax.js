@@ -1,10 +1,6 @@
-    function sendData()
-    {
-        var formData = new FormData( document.querySelector("form") );
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("post", "accessItem.php",true); 
-        xmlHttp.send(formData); 
-        xmlHttp.onreadystatechange = function(){        
+var xmlHttp;
+
+function ready(){        
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200){ 
                 var cookies = document.cookie;
                 var list = cookies.split("; ");         
@@ -31,9 +27,17 @@
                 document.getElementById("prompt").innerHTML = xmlHttp.responseText;
                 ob.removeEventListener("click",sendData);
             }
-        }
+    }
+
+    function sendData()
+    {
+        var formData = new FormData( document.querySelector("form") );
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("post", "accessItem.php",true); 
+        xmlHttp.send(formData); 
+        xmlHttp.onreadystatechange =  ready();
     }
 
     ob = document.getElementById("submit"); 
-    ob.addEventListener("click",sendData)
+    ob.addEventListener("click",sendData);
     
