@@ -66,48 +66,6 @@ input[name="source"]{
     </table>
     </form>
     <p id="prompt">testme</p>
-    <script>
-    
-    function callback() { 
-    }
-
-    function sendData()
-    {
-        var formData = new FormData( document.querySelector("form") );
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("post", "accessItem.php",true); 
-        xmlHttp.send(formData); 
-        xmlHttp.onreadystatechange = function(){        
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){ 
-            var cookies = document.cookie;
-            var list = cookies.split("; ");         
-            for(var i = 0; i < list.length; i++) {
-                arr = list[i].split("=");  
-                if(arr[0] == "flag_update"){
-                    data = xmlHttp.responseText;
-                    console.log(data);
-                    console.log(JSON.parse(data));
-                    tmp_meaning = document.getElementById("meaning").innerHTML ;
-                    data["meaning"] = data["meaning"] + "\n" + tmp_meaning;
-                    document.getElementById("meaning").innerHTML = data["meaning"];
-                    tmp_source = document.getElementById("source").innerHTML ;
-                    data["source"] = data["source"] + "\n" + tmp_source;
-                    document.getElementById("source").innerHTML = data["source"];
-                    document.getElementById("prompt").innerHTML =  "已经合并已有的内容，请确认无误后，再次点击submit"       
-                    return 0;
-                }
-            }
-            document.getElementById("submit").value = "changed";
-            document.getElementById("submit").id = "changed";
-            document.getElementById("prompt").innerHTML = xmlHttp.responseText;
-            ob.removeEventListener("click",sendData);
-        }
-        }
-    }
-
-    ob = document.getElementById("submit"); 
-    ob.addEventListener("click",sendData)
-    
-    </script>
+    <script src="ajax.js"></script>
 </body>
 </html>
