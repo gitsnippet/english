@@ -1,0 +1,168 @@
+知识点：
+1.数据库
+UPDATE语法可以用新值更新原有表行中的各列。SET子句指示要修改哪些列和要给予哪些值。WHERE子句指定应更新哪些行。如果没有WHERE子句，则更新所有的行。
+CREATE database `english`;
+use  `english`;
+CREATE TABLE `english` (
+      `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+      `date` date NOT NULL COMMENT '日期',
+      `content` varchar(50) NOT NULL COMMENT '内容或标题',
+      `type` varchar(8) NOT NULL COMMENT 'word or phrase or sentence or grammar or reading material',
+      `meaning` varchar(500) NOT NULL COMMENT '含义或全文',
+      `source` varchar(500) NOT NULL COMMENT '来源或url',
+      UNIQUE KEY  (`content`,`type`),
+      PRIMARY KEY (`id`)) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+由于设置了UNIQUE KEY  (`content`,`type`)
+更新的时候，
+
+update english SET `date`='$date',`meaning`='$meaning',`source`='$source' ,`content`='$content',`type`='$type'";
+出错。
+原因：
+假定原来有5条不同记录，上面的语句，没有指定特定的行，将更新全部的5条记录，这5条新更新后的记录却是全部一样的，由于有约束
+UNIQUE KEY  (`content`,`type`),又将导致无法写入数据库，因此报错。
+
+正确的写法：
+update english SET `date`='$date',`meaning`='$meaning',`source`='$source' where `content`='$content' and`type`='$type'";
+
+
+2.html文件
+2.1
+ajax.js放在body的最下方
+<pre>
+    <script src="ajax.js"></script>
+</body>
+</pre>
+或者
+<pre>
+<script src="ajax.js" defer></script>
+</pre>
+
+
+
+3.js
+3.1 button  submit的区别
+input的类型，button 如果写成了submit,js的行为将发生变化
+对于button而言，绑定的函数在点击button触发;
+submit，即使没有绑定函数，也会在被点击后，传递表单。
+
+3.2 formData传递表单
+var formData = new FormData( document.querySelector("form") )
+
+var elements = document.getElementsByTagName("form");
+
+var formData = new FormData(); 
+var ipts = elements.querySelector('input, select');
+for(var ipt of ipts)
+{
+    formData.append( ipt.name, ipt.value );
+}
+
+var mySelect = document.getElementById("type");
+var index = mySelect.selectedIndex;
+var svalue = mySelect.options[index].value;
+var sname = "type";
+
+
+3.3 textarea value innerHTML
+
+3.4 xmlHttp.onreadystatechange的写法和顺序
+写法1：局部变量方式
+
+function ready()
+{        
+    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+    { 
+        do something;
+    }
+}
+
+
+function sendData()
+{
+    var formData = new FormData( document.querySelector("form") );
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("post", "accessItem.php",true); 
+    xmlHttp.send(formData); 
+    xmlHttp.onreadystatechange =  function()
+    {
+        ready(xmlHttp);
+    }
+}
+
+ob = document.getElementById("submit"); 
+ob.addEventListener("click",sendData);
+
+要点：xmlHttp作为局部变量，并传递给其他函数。
+不可以写成   
+    xmlHttp.onreadystatechange =  ready();
+
+xmlHttp作为局部变量，ready函数中无法调用。
+
+不可以写成
+    xmlHttp.onreadystatechange =  ready(xmlHttp);
+
+xmlHttp.onreadystatechange是一个事件，ready(xmlHttp)是一个函数的值，这里需要的是将一个函数赋值给事件。
+
+写法2：全局变量方式
+var xmlHttp
+function ready()
+{        
+    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+    { 
+        do something;
+    }
+}
+
+
+function sendData()
+{
+    var formData = new FormData( document.querySelector("form") );
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("post", "accessItem.php",true); 
+    xmlHttp.send(formData); 
+    xmlHttp.onreadystatechange =  ready();
+    }
+}
+
+ob = document.getElementById("submit"); 
+ob.addEventListener("click",sendData);
+
+注意，此时   function sendData 里面的语句，不可以是
+var xmlHttp = new XMLHttpRequest();
+函数里面的  var xmlHttp = new XMLHttpRequest();  将使得xmlHttp称为一个局部变量，导致ready函数无法调用。
+
+4.php 与js 的通信
+4.1 数组数据的传递与解析 
+
+js接收了一个字符串形式的数组
+
+array(1) {
+  [0]=>
+  array(2) {
+    ["id"]=>
+    string(2) "30"
+    ["date"]=>
+    string(10) "2018-10-14"
+  }
+}
+难以解析。
+
+php的数组请转换成json，再传送给js。
+
+php side 
+
+    echo (json_encode($result));
+
+js side
+
+  data = xmlHttp.responseText;  
+  data = JSON.parse(data)[0]; 
+  console.log(data.date)   
+
+4.2  php js 状态信息共享
+cookie
+
+
+
+
+
