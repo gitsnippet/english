@@ -12,7 +12,7 @@ function checkData(){
     return $rows;    
 }
 
-function writeData(){
+function insertData(){
     global $_POST,$dsn,$con;
     extract($_POST);
     $query_insert = "insert into english (`date`,`content`,`type`,`meaning`,`source`) 
@@ -52,7 +52,7 @@ if($rowCount >= 1){
     echo (json_encode($result));
 }
 elseif($rowCount == 0){
-    writeData();
+    insertData();
 }
 
 ?>

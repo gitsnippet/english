@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <title></title>
     <style>
-p{
-    margin:50px auto;
-    text-align:center;
-}
-table{
-    margin:100px auto;
-    border:2px solid red;
-    width:800px;
-}
-tr,td{
-
-    border:1px solid black;
-    text-align:center;
-}   
-input[name="source"]{
-    width:90%;
-}
+	p{
+	    margin:50px auto;
+	    text-align:center;
+            font-size:24px;
+	}
+	table{
+	    margin:50px auto;
+	    border:2px solid red;
+	    width:800px;
+	}
+	tr,td{
+	    border:1px solid black;
+	    text-align:center;
+	}   
+	input[name="source"]{
+	    width:90%;
+	}
     </style>
 </head>
 <body>
@@ -47,64 +47,25 @@ input[name="source"]{
         </tr>
         <tr>
             <td>内容或标题</td>
-            <td><textarea  name='content' cols="80" rows="8"></textarea></td>
+            <td><textarea  name='content' cols="80" rows="8" id="content"></textarea></td>
             <td><span id="contentMsg">500字以内,reading material对应标题</span></td>
         </tr>
         <tr>
             <td>含义或要点</td>
-            <td><textarea  name='meaning' cols="80" rows="8"></textarea></td>
+            <td><textarea  name='meaning' cols="80" rows="8" id="meaning"></textarea></td>
             <td><span id="meaningMsg">reading material 写明知识点</span></td>
         </tr>
         <tr>
-            <td>来源</td>
-            <td><textarea  name='source' cols="80" rows="8"></textarea></td>
-            <td><span id="sourceMsg">写明来源，字典 url链接</span></td>
+            <td>来源或url</td>
+            <td><textarea  name='source' cols="80" rows="8" id="source"></textarea></td>
+            <td><span id="sourceMsg">写明来源，字典或url链接</span></td>
         </tr>
         <tr>
             <td colspan="3"><input type="button" value="submit" id="submit"></td>
         </tr>
     </table>
     </form>
-    <p id="prompt">testme</p>
-    <script>
-    
-    function callback() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){ 
-            var cookies = document.cookie;
-            var list = cookies.split("; ");         
-            for(var i = 0; i < list.length; i++) {
-                arr = list[i].split("=");  
-                if(arr[0] == "flag_update"){
-                    data = xmlHttp.responseText[0];
-                    tmp_meaning = document.getElementById("meaning").innerHTML ;
-                    data["meaning"] = data["meaning"] + "\n" + tmp_meaning;
-                    document.getElementById("meaning").innerHTML = data["meaning"];
-                    tmp_source = document.getElementById("source").innerHTML ;
-                    data["source"] = data["source"] + "\n" + tmp_source;
-                    document.getElementById("source").innerHTML = data["source"];
-                    document.getElementById("prompt").innerHTML =  "已经合并已有的内容，请确认无误后，再次点击submit"       
-                    return 0;
-                }
-            }
-            document.getElementById("submit").name = "changed";
-            document.getElementById("submit").id = "changed";
-            document.getElementById("prompt").innerHTML = xmlHttp.responseText;
-        }
-    }
-
-    function sendData()
-    {
-        var formData = new FormData( document.querySelector("form") );
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("post", "accessItem.php",true); 
-        xmlHttp.send(formData); 
-        xmlHttp.onreadystatechange = callback;
-        
-    }
-
-    ob = document.getElementById("submit"); 
-    ob.addEventListener("click",sendData)
-    
-    </script>
+    <p id="prompt">重要信息提示</p>
+    <script src="ajax.js"></script>
 </body>
 </html>
