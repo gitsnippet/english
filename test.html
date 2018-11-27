@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <title></title>
     <style>
-    p{
-        margin:50px auto;
-        text-align:center;
+	p{
+	    margin:50px auto;
+	    text-align:center;
             font-size:24px;
-    }
-    table{
-        margin:50px auto;
-        border:2px solid red;
-        width:800px;
-    }
-    tr,td{
-        border:1px solid black;
-        text-align:center;
-    }   
-    input[name="source"]{
-        width:90%;
-    }
+	}
+	table{
+	    margin:50px auto;
+	    border:2px solid red;
+	    width:800px;
+	}
+	tr,td{
+	    border:1px solid black;
+	    text-align:center;
+	}   
+	input[name="source"]{
+	    width:90%;
+	}
     </style>
 </head>
 <body>
@@ -30,10 +30,7 @@
         <tr>
             <td>日期</td>
             <td><input type='text' name="date"></td>
-            <td><span id="dateMsg">格式 0000-00-00<br/>
-                                   默认输入今天的日期                        
-                </span>           
-            </td>
+            <td><span id="dateMsg">格式 0000-00-00</span></td>
         </tr>
         <tr>
             <td>类型</td>
@@ -46,7 +43,7 @@
                 <option value="reading material">reading material</option>
             </select>
         </td>
-            <td><span id="typeMsg">word phrase sentence grammar reading material</span></td>
+            <td><span id="typeMsg">word phrase sentence grammar</span></td>
         </tr>
         <tr>
             <td>内容或标题</td>
@@ -61,9 +58,7 @@
         <tr>
             <td>来源或url</td>
             <td><textarea  name='source' cols="80" rows="8" id="source"></textarea></td>
-	    <td><span id="sourceMsg">写明来源，字典或url链接<br/>
-			            默认输入 字典
-		    </span></td>
+            <td><span id="sourceMsg">写明来源，字典或url链接</span></td>
         </tr>
         <tr>
             <td colspan="3"><input type="button" value="submit" id="submit"></td>
@@ -71,6 +66,6 @@
     </table>
     </form>
     <p id="prompt">重要信息提示</p>
-    <script src="ajax.js"></script>
+    <script src="test.js"></script>
 </body>
 </html>

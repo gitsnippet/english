@@ -1,9 +1,17 @@
 <?php
-$date = $_POST["date"];
-$content = $_POST["content"];
-$type = $_POST["type"];
-$meaning = $_POST["meaning"];
-$source = $_POST["source"];
+$date = trim($_POST["date"]);
+$content = trim($_POST["content"]);
+$type = trim($_POST["type"]);
+$meaning = trim($_POST["meaning"]);
+$source = trim($_POST["source"]);
+
+if($date == ""){
+    $date = date("Y-m-d");
+}
+
+if($source == ""){
+    $source = "dictionary";
+}
 
 $dsn = "mysql:host=localhost;dbname=english";
 $con = new PDO($dsn,"root","xyzzy");
