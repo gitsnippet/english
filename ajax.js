@@ -1,5 +1,5 @@
 
-function ready(){        
+function ready(xmlHttp){        
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200){ 
         var cookies = document.cookie;
         var list = cookies.split("; ");         

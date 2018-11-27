@@ -38,14 +38,42 @@ ajax.js放在body的最下方
 </pre>
 
 
-
 3.js
 3.1 button  submit的区别
-input的类型，button 如果写成了submit,js的行为将发生变化
-对于button而言，绑定的函数在点击button触发;
-submit，即使没有绑定函数，也会在被点击后，传递表单。
+type = "submit" 用在表单内,里面有类似的默认方法封装,普通单击就是提交所在表单
+type = "button" 就是说这个是个普通的按钮,如果不写单击等事件,那么这个按钮点击是没有任何反应的,所有事件都需要自己手动写
+如果一段js代码没有封装在函数内部，网页一打开，就会执行对应的js代码
+<pre>
+<body>
+<form id="myForm" action="" method="post">
+    <input type="text" name="name">名字
+    <input type="password" name="psw">密码
+    <input type="text" id="test" value="check">
+    <input type="submit" value="提交">
+</form>
+<script>
+    console.log("haha");
+    var form = document.getElementById("myForm");
+    var formData = new FormData(form);
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("post", "test.php",true); 
+    xmlHttp.send(formData); 
+    xmlHttp.onreadystatechange =  function(){ console.log(xmlHttp.responseText)};
+</script>
+</form>
+</body>
+</pre>
+保存为一个页面后，浏览器一打开这个页面，就会执行；点击  提交  ，反而不会触发js语句。
 
-3.2 formData传递表单
+1.为何浏览器一打开这个页面，就会执行
+console.log("haha");
+代码没有封装在一个函数内
+
+2.点击  提交  ，反而不会触发js语句
+此时按照标准的post模式发送数据，这个按钮没有绑定函数。
+
+3.2 formData传递表单与处理
+3.2.1 传递
 var formData = new FormData( document.querySelector("form") )
 
 var elements = document.getElementsByTagName("form");
@@ -62,13 +90,17 @@ var index = mySelect.selectedIndex;
 var svalue = mySelect.options[index].value;
 var sname = "type";
 
+3.2.2
+php收到formData后，与普通的submit的数据一样，$_POST,extract($_POST)
+
 
 3.3 textarea value innerHTML
+http://hwy.local/wp/?p=4772
 
 3.4 xmlHttp.onreadystatechange的写法和顺序
 写法1：局部变量方式
 
-function ready()
+function ready(xmlHttp)
 {        
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
     { 
@@ -160,8 +192,25 @@ js side
   console.log(data.date)   
 
 4.2  php js 状态信息共享
-cookie
+cookie  
+php
+设置cookie
+    setcookie("flag_update","1");
+    setcookie("flag_update","",0);
+读取cookie
 
+设置cookie
+
+document.cookie="flag_update="+2;
+
+读取cookie
+
+        var cookies = document.cookie;
+        var list = cookies.split("; ");         
+        for(var i = 0; i < list.length; i++) {
+            arr = list[i].split("=");  
+            arr[0]
+            arr[1] 
 
 
 
