@@ -1,11 +1,14 @@
-
-function ready(xmlHttp){        
-    if (xmlHttp.readyState == 4 && xmlHttp.status == 200){ 
+function ready(xmlHttp)
+{        
+    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+    { 
         var cookies = document.cookie;
         var list = cookies.split("; ");         
-        for(var i = 0; i < list.length; i++) {
+        for(var i = 0; i < list.length; i++) 
+        {
             arr = list[i].split("=");  
-            if(arr[0] == "flag_update" &&  arr[1] == 1){
+            if(arr[0] == "flag_update" &&  arr[1] == 1)
+            {
                 data = xmlHttp.responseText;
                 data = JSON.parse(data)[0];
                 console.log(data.meaning);
@@ -21,16 +24,16 @@ function ready(xmlHttp){
                 return 0;
              }
         }
-        document.getElementById("submit").value = "changed";
-        document.getElementById("submit").id = "changed";
+        document.getElementById("add").value = "changed";
+        document.getElementById("add").id = "changed";
         document.getElementById("prompt").innerHTML = xmlHttp.responseText;
-        ob.removeEventListener("click",sendData);
+        ob_add.removeEventListener("click",addData);
     }
 }
 
-function sendData()
+function addData()
 {
-    var formData = new FormData( document.querySelector("form") );
+    var formData = new FormData( document.querySelector("#form_add") );
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("post", "accessItem.php",true); 
     xmlHttp.send(formData); 
@@ -39,5 +42,56 @@ function sendData()
     }
 }
 
-ob = document.getElementById("submit"); 
-ob.addEventListener("click",sendData);
+ob_add = document.getElementById("add"); 
+ob_add.addEventListener("click",addData);
+
+function show(xmlHttp)
+{
+    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+    {
+            data = JSON.parse(xmlHttp.responseText);
+            table_show = "<table>";
+            table_show += "<tr>";
+            table_show += "<td>" + "id" + "</td>";
+            table_show += "<td>" + "date" + "</td>";
+            table_show += "<td>" + "type" + "</td>";
+            table_show += "<td>" + "content" + "</td>";
+            table_show += "<td>" + "meaning" + "</td>";
+            table_show += "<td>" + "source" + "</td>";
+            table_show += "</tr>";
+        
+            for(i=0;i<data.length;i++)
+            {
+                table_show += "<tr>";
+                table_show += "<td>" + data[i][0].replace(/\n/g,"</br>") + "</td>";
+                table_show += "<td>" + data[i][1].replace(/\n/g,"</br>")  + "</td>";
+                table_show += "<td>" + data[i][2].replace(/\n/g,"</br>")  + "</td>";
+                table_show += "<td>" + data[i][3].replace(/\n/g,"</br>")  + "</td>";
+                table_show += "<td>" + data[i][4].replace(/\n/g,"</br>")  + "</td>";
+                table_show += "<td>" + data[i][5].replace(/\n/g,"</br>")  + "</td>";
+
+                table_show += "</tr>";
+            }
+            table_show += "</table>";
+            var parent = document.body;
+            var tmp = document.createElement("table");
+            tmp.innerHTML = table_show;
+            parent.appendChild(tmp);
+    }
+}
+
+
+function selectData()
+{
+    var formData = new FormData( document.querySelector("#form_select") );
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("post", "selectData.php",true); 
+    xmlHttp.send(formData); 
+    xmlHttp.onreadystatechange =  function()
+    {
+        show(xmlHttp);
+    }
+}
+
+ob_select = document.getElementById("select");
+ob_select.addEventListener("click",selectData)

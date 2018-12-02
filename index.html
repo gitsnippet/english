@@ -26,16 +26,8 @@
 </head>
 <body>
     <p>英语学习</p>
-    <form>
     <table>
-        <tr>
-            <td>日期</td>
-            <td><input type='text' name="date"></td>
-            <td><span id="dateMsg">格式 0000-00-00<br/>
-                                   留空将默认输入今天的日期                        
-                </span>           
-            </td>
-        </tr>
+    <form id="form_add">
         <tr>
             <td>类型</td>
             <td>
@@ -67,10 +59,28 @@
             </span></td>
         </tr>
         <tr>
-            <td colspan="3"><input type="button" value="submit" id="submit"></td>
+            <td colspan="3"><input type="button" value="add new word" id="add"></td>
         </tr>
-    </table>
     </form>
+    <form id="form_select">
+        <tr>
+            <td>show learned words</td>
+            <td>
+                <select name="type">
+                    <option value="all">all</option>
+                    <option value="word">word</option>
+                    <option value="phase">phrase</option>
+                    <option value="sentence">sentence</option>
+                    <option value="grammar">grammar</option>
+                    <option value="reading material">reading material</option>
+                </select>
+            </td>
+            <td>
+                <input id="select" type="button" value="select">
+            </td>
+        </tr>
+    </form>
+    </table>
     <p id="prompt">重要信息提示</p>
     <script src="ajax.js"></script>
 </body>

@@ -1,17 +1,20 @@
+
 知识点：
 1.数据库
 UPDATE语法可以用新值更新原有表行中的各列。SET子句指示要修改哪些列和要给予哪些值。WHERE子句指定应更新哪些行。如果没有WHERE子句，则更新所有的行。
+
 CREATE database `english`;
-use  `english`;
+USE  `english`;
 CREATE TABLE `english` (
-      `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
-      `date` date NOT NULL COMMENT '日期',
-      `content` varchar(50) NOT NULL COMMENT '内容或标题',
-      `type` varchar(8) NOT NULL COMMENT 'word or phrase or sentence or grammar or reading material',
-      `meaning` varchar(500) NOT NULL COMMENT '含义或全文',
-      `source` varchar(500) NOT NULL COMMENT '来源或url',
+      `id` INT(6) UNSIGNED  NOT NULL AUTO_INCREMENT,
+      `date` DATE NOT NULL COMMENT '日期',
+      `type` VARCHAR(8) NOT NULL COMMENT 'word or phrase or sentence or grammar or reading material',
+      `content` VARCHAR(50) NOT NULL COMMENT '内容或标题',
+      `meaning` VARCHAR(500) NOT NULL COMMENT '含义或全文',
+      `source` VARCHAR(500) NOT NULL DEFAULT "dictionary" COMMENT '来源或url',
       UNIQUE KEY  (`content`,`type`),
       PRIMARY KEY (`id`)) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
 由于设置了UNIQUE KEY  (`content`,`type`)
 更新的时候，
 
@@ -23,6 +26,9 @@ UNIQUE KEY  (`content`,`type`),又将导致无法写入数据库，因此报错�
 
 正确的写法：
 update english SET `date`='$date',`meaning`='$meaning',`source`='$source' where `content`='$content' and`type`='$type'";
+
+导入mysql脚本
+mysql -u root -p  < english.sql
 
 
 2.html文件
