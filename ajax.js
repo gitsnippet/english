@@ -19,7 +19,7 @@ function ready(xmlHttp)
                 tmp_source = document.getElementById("source").value;
                 data.source = data.source + "\n" + tmp_source;
                 document.getElementById("source").value = data.source;
-                document.getElementById("prompt").innerHTML =  "已经合并已有的内容，请确认无误后，再次点击submit"       
+                document.getElementById("prompt").innerHTML =  "已经合并已有的内容，请确认无误后，再次点击submit";
                 document.cookie="flag_update="+2;   
                 return 0;
              }
@@ -63,13 +63,12 @@ function show(xmlHttp)
             for(i=0;i<data.length;i++)
             {
                 table_show += "<tr>";
-                table_show += "<td>" + data[i][0].replace(/\n/g,"</br>") + "</td>";
+                table_show += "<td>" + data[i][0].replace(/\n/g,"</br>")  + "</td>";
                 table_show += "<td>" + data[i][1].replace(/\n/g,"</br>")  + "</td>";
                 table_show += "<td>" + data[i][2].replace(/\n/g,"</br>")  + "</td>";
                 table_show += "<td>" + data[i][3].replace(/\n/g,"</br>")  + "</td>";
                 table_show += "<td>" + data[i][4].replace(/\n/g,"</br>")  + "</td>";
                 table_show += "<td>" + data[i][5].replace(/\n/g,"</br>")  + "</td>";
-
                 table_show += "</tr>";
             }
             table_show += "</table>";
@@ -94,4 +93,4 @@ function selectData()
 }
 
 ob_select = document.getElementById("select");
-ob_select.addEventListener("click",selectData)
+ob_select.addEventListener("click",selectData);

@@ -81,9 +81,7 @@ console.log("haha");
 3.2 formData传递表单与处理
 3.2.1 传递
 var formData = new FormData( document.querySelector("form") )
-
 var elements = document.getElementsByTagName("form");
-
 var formData = new FormData(); 
 var ipts = elements.querySelector('input, select');
 for(var ipt of ipts)
@@ -98,7 +96,6 @@ var sname = "type";
 
 3.2.2
 php收到formData后，与普通的submit的数据一样，$_POST,extract($_POST)
-
 
 3.3 textarea value innerHTML
 http://hwy.local/wp/?p=4772
@@ -217,7 +214,4 @@ document.cookie="flag_update="+2;
             arr = list[i].split("=");  
             arr[0]
             arr[1] 
-
-
-
 
