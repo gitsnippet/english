@@ -237,3 +237,12 @@ mysql中的字符串包含\n时，出现乱糟糟的格式
 
 6.vim大小写转换
 5,15norm g~$
+
+7.命名
+form表单 form_selectData
+button   b_selectData
+function  selectData
+object   ob_selectData
+
+
+
