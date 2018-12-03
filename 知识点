@@ -219,3 +219,7 @@ textarea中是字符串，按照文本文件来显示
 \n表示换行
 mysql中的字符串包含\n时，出现乱糟糟的格式
 用html来展示时，js的replace(/\n/g,"</br>");
+
+
+6.vim大小写转换
+5,15norm g~$
