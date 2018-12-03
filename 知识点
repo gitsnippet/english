@@ -214,4 +214,8 @@ document.cookie="flag_update="+2;
             arr = list[i].split("=");  
             arr[0]
             arr[1] 
-
+5.数据显示
+textarea中是字符串，按照文本文件来显示
+\n表示换行
+mysql中的字符串包含\n时，出现乱糟糟的格式
+用html来展示时，js的replace(/\n/g,"</br>");
