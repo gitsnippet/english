@@ -11,9 +11,7 @@ function ready(xmlHttp)
             {
                 data = xmlHttp.responseText;
                 data = JSON.parse(data)[0];
-                console.log(data.meaning);
                 tmp_meaning = document.getElementById("meaning").value;
-                console.log(tmp_meaning);
                 data.meaning = data.meaning + "\n" + tmp_meaning;
                 document.getElementById("meaning").value = data.meaning;
                 tmp_source = document.getElementById("source").value;
