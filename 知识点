@@ -244,5 +244,7 @@ button   b_selectData
 function  selectData
 object   ob_selectData
 
+8.可以一次运行多个sql语句
 
+9.无论何种方式传递数据，必须form表单将input 包裹起来。
 

@@ -77,7 +77,6 @@ function show(xmlHttp)
     }
 }
 
-
 function selectData()
 {
     var formData = new FormData( document.querySelector("#form_select") );
@@ -92,3 +91,22 @@ function selectData()
 
 ob_select = document.getElementById("select");
 ob_select.addEventListener("click",selectData);
+
+function resetId()
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("get", "resetId.php",true); 
+    xmlHttp.send(); 
+    xmlHttp.onreadystatechange =  function()
+    {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        {
+            document.getElementById("prompt").innerHTML = xmlHttp.responseText;
+        }
+    }
+    
+}
+
+ob_resetId = document.getElementById("resetId");
+ob_resetId.addEventListener("click",resetId);
+

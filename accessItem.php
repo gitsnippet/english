@@ -39,7 +39,7 @@ function insertData()
     }
     else
     {
-        echo "something wrong";
+    print_r($con->errorInfo());
     }
 }
 
@@ -54,7 +54,7 @@ function updateData()
     else
     {
         setcookie("flag_update","",0);
-        echo "something wrong";
+        print_r($con->errorInfo());
     }
 }
 
