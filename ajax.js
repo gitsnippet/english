@@ -1,31 +1,36 @@
-function ready(xmlHttp)
+function ready(xmlHttp,eventTarget)
 {        
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
     { 
-        var cookies = document.cookie;
-        var list = cookies.split("; ");         
-        for(var i = 0; i < list.length; i++) 
+        if( eventTarget.value  == "changed")
         {
-            arr = list[i].split("=");  
-            if(arr[0] == "flag_update" &&  arr[1] == 1)
-            {
-                data = xmlHttp.responseText;
-                data = JSON.parse(data)[0];
-                tmp_meaning = document.getElementById("meaning").value;
-                data.meaning = data.meaning + "\n" + tmp_meaning;
-                document.getElementById("meaning").value = data.meaning;
-                tmp_source = document.getElementById("source").value;
-                data.source = data.source + "\n" + tmp_source;
-                document.getElementById("source").value = data.source;
-                document.getElementById("prompt").innerHTML =  "已经合并已有的内容，请确认无误后，再次点击submit";
-                document.cookie="flag_update="+2;   
-                return 0;
-             }
+            location.reload();
         }
-        document.getElementById("add").value = "changed";
-        document.getElementById("add").id = "changed";
-        document.getElementById("prompt").innerHTML = xmlHttp.responseText;
-        ob_add.removeEventListener("click",addData);
+        else
+        {
+            var cookies = document.cookie;
+            var list = cookies.split("; ");         
+            for(var i = 0; i < list.length; i++) 
+            {
+                arr = list[i].split("=");  
+                if(arr[0] == "flag_update" &&  arr[1] == 1)
+                {
+                    data = xmlHttp.responseText;
+                    data = JSON.parse(data)[0];
+                    tmp_meaning = document.getElementById("meaning").value;
+                    data.meaning = data.meaning + "\n" + tmp_meaning;
+                    document.getElementById("meaning").value = data.meaning;
+                    tmp_source = document.getElementById("source").value;
+                    data.source = data.source + "\n" + tmp_source;
+                    document.getElementById("source").value = data.source;
+                    document.getElementById("prompt").innerHTML =  "已经合并已有的内容，请确认无误后，再次点击submit";
+                    document.cookie="flag_update="+2;   
+                    return 0;
+                 }
+            }
+            eventTarget.value = "changed";
+            document.getElementById("prompt").innerHTML = xmlHttp.responseText;
+        }
     }
 }
 
@@ -33,10 +38,11 @@ function addData()
 {
     var formData = new FormData( document.querySelector("#form_add") );
     var xmlHttp = new XMLHttpRequest();
+    var eventTarget = event.target;
     xmlHttp.open("post", "accessItem.php",true); 
     xmlHttp.send(formData); 
     xmlHttp.onreadystatechange =  function(){
-        ready(xmlHttp);
+        ready(xmlHttp,eventTarget);
     }
 }
 
@@ -92,6 +98,7 @@ function selectData()
 ob_select = document.getElementById("select");
 ob_select.addEventListener("click",selectData);
 
+
 function resetId()
 {
     var xmlHttp = new XMLHttpRequest();
@@ -109,4 +116,3 @@ function resetId()
 
 ob_resetId = document.getElementById("resetId");
 ob_resetId.addEventListener("click",resetId);
-

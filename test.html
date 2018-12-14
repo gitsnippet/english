@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form id="do">
+<input id="first" type="text" > 
+<input id="add" type="button" value="add">
+</form>
+<script>
+
+    function ready(xmlHttp,e)
+{        
+    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+    { 
+    console.log(e.id);
+    console.log(xmlHttp.responseText);
+    }
+}
+
+function addData()
+{
+    var formData = new FormData( document.querySelector("#do") );
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("post", "echo.php",true); 
+    xmlHttp.send(formData); 
+    xmlHttp.onreadystatechange =  function(){
+        ready(xmlHttp,this);
+    }
+}
+
+ob_add = document.getElementById("add"); 
+ob_add.addEventListener("click",addData);
+</script>
+
+</body>
+</html>
