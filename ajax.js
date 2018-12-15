@@ -4,6 +4,7 @@ function ready(xmlHttp,eventTarget)
     { 
         if( eventTarget.value  == "changed")
         {
+            document.cookie = "flag_update" + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
             location.reload();
         }
         else
@@ -118,6 +119,7 @@ ob_resetId = document.getElementById("resetId");
 ob_resetId.addEventListener("click",resetId);
 
 function refresh(){
+    document.cookie = "flag_update" + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     location.reload();
 }
 

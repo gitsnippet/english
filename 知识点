@@ -248,3 +248,7 @@ object   ob_selectData
 
 9.无论何种方式传递数据，必须form表单将input 包裹起来。
 
+10.删除cookie
+flag的取值可以不写出来
+document.cookie = "flag" + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+无论flag的值是多少，它的cookie都已经被删除

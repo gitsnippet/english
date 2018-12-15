@@ -35,6 +35,7 @@ function insertData()
                      values('$date','$type','$content','$meaning','$source')"; 
     if($con->query($query_insert))
     {
+        setcookie("flag_update","",0);
         echo "成功写入数据库";
     }
     else
