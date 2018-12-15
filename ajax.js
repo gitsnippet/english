@@ -15,6 +15,7 @@ function ready(xmlHttp,eventTarget)
                 arr = list[i].split("=");  
                 if(arr[0] == "flag_update" &&  arr[1] == 1)
                 {
+                    document.cookie="flag_update=2";   
                     data = xmlHttp.responseText;
                     data = JSON.parse(data)[0];
                     tmp_meaning = document.getElementById("meaning").value;
@@ -23,8 +24,7 @@ function ready(xmlHttp,eventTarget)
                     tmp_source = document.getElementById("source").value;
                     data.source = data.source + "\n" + tmp_source;
                     document.getElementById("source").value = data.source;
-                    document.getElementById("prompt").innerHTML =  "已经合并已有的内容，请确认无误后，再次点击submit";
-                    document.cookie="flag_update="+2;   
+                    document.getElementById("prompt").innerHTML =  "已经合并已有的内容，请确认无误后，再次点击add new word";
                     return 0;
                  }
             }

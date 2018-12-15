@@ -50,6 +50,7 @@ function updateData()
     if($con->query($query_update))
     {
         setcookie("flag_update","",0);
+        echo "成功写入数据库";
     }
     else
     {
