@@ -116,3 +116,10 @@ function resetId()
 
 ob_resetId = document.getElementById("resetId");
 ob_resetId.addEventListener("click",resetId);
+
+function refresh(){
+    location.reload();
+}
+
+ob_refresh = document.getElementById("refresh");
+ob_refresh.addEventListener("click",refresh);
