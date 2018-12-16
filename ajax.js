@@ -55,7 +55,7 @@ function show(xmlHttp)
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
     {
             data = JSON.parse(xmlHttp.responseText);
-            table_show = "<table>";
+            table_show = "<table  id='show'>";
             table_show += "<tr>";
             table_show += "<td>" + "id" + "</td>";
             table_show += "<td>" + "date" + "</td>";
@@ -79,8 +79,8 @@ function show(xmlHttp)
             table_show += "</table>";
             var parent = document.body;
             var tmp = document.createElement("table");
-            tmp.innerHTML = table_show;
             parent.appendChild(tmp);
+            tmp.outerHTML = table_show;
     }
 }
 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<input id="bShow" type="button" value="show_table">
+    <script>
+function show(){
+    table_show = '<table id="show">';
+    table_show += "<tr>";
+    table_show += "<td>" + "id" + "</td>";
+    table_show += "<td>" + "date" + "</td>";
+    table_show += "<td>" + "type" + "</td>";
+    table_show += "</tr>";
+    table_show += "</table>";
+    var parent = document.body;
+    var tmp = document.createElement('table');
+    parent.appendChild(tmp);
+    tmp.outerHTML = table_show;
+}
+
+ob = document.getElementById("bShow");
+ob.addEventListener("click",show);
+    
+    </script>
+	
+</body>
+</html>

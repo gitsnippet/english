@@ -1,0 +1,29 @@
+    p{
+        margin:50px auto;
+        text-align:center;
+        font-size:24px;
+    }
+    table{
+        margin:50px auto;
+        border:2px solid ;
+        width:900px;
+    }
+    tr,td{
+        border:1px solid black;
+        text-align:center;
+        width:160px;
+    }   
+    input[name="source"]{
+        width:90%;
+    }
+
+    table[id="show"]{
+        width:90%;
+        border:1px solid black;
+    }
+    table[id="show"] tr td:nth-child(1){width:10%;text-align:left;}
+    table[id="show"] tr td:nth-child(2){width:10%;text-align:left;}
+    table[id="show"] tr td:nth-child(3){width:10%;text-align:left;}
+    table[id="show"] tr td:nth-child(4){width:10%;text-align:left;}
+    table[id="show"] tr td:nth-child(5){width:50%;text-align:left;}
+    table[id="show"] tr td:nth-child(6){width:10%;text-align:left;}
