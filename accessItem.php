@@ -13,11 +13,14 @@ if($source == "")
 
 $dsn = "mysql:host=localhost;dbname=english";
 $con = new PDO($dsn,"root","xyzzy");
+$content = $con->quote($content);
+$meaning = $con->quote($meaning);
+$source = $con->quote($source);
 
 function checkData()
 {
     global $date,$type,$content,$meaning,$source,$dsn,$con;
-    $query_check = "select * from english where `content`='$content' and `type`='$type' ";
+    $query_check = "select * from english where `content`=$content and `type`='$type' ";
     $result = $con->query($query_check);
     $rows = $result->fetchAll();
     return $rows;    
@@ -32,7 +35,7 @@ function insertData()
         exit;
     }
     $query_insert = "insert into english (`date`,`type`,`content`,`meaning`,`source`) 
-                     values('$date','$type','$content','$meaning','$source')"; 
+                     values('$date','$type',$content,$meaning,$source)"; 
     if($con->query($query_insert))
     {
         setcookie("flag_update","",0);
@@ -47,7 +50,7 @@ function insertData()
 function updateData()
 {
     global $date,$type,$content,$meaning,$source,$dsn,$con;
-    $query_update = "update english SET `date`='$date',`meaning`='$meaning',`source`='$source' where `content`='$content' and`type`='$type'";
+    $query_update = "update english SET `date`='$date',`meaning`=$meaning,`source`=$source where `content`=$content and`type`='$type'";
     if($con->query($query_update))
     {
         setcookie("flag_update","",0);
@@ -79,5 +82,4 @@ elseif($rowCount == 0)
 {
     insertData();
 }
-
 ?>
