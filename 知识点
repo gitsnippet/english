@@ -264,5 +264,31 @@ CREATE TABLE `english` (
 show create table `english`,此时的auto_increment将对应下一个id值
 如果已经插入了20条记录，此时show create table `english` 将显示21
 
+12.mysql的转义
+<pre>
+create database `test`;
+CREATE TABLE `test` (
+  `id` int(2) unsigned NOT NULL AUTO_INCREMENT,
+  `f1` varchar(80) NOT NULL ,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ;
+
+insert into `test` (`f1`) values("people's identities");
+</pre>
+php中必须转义
+<pre>
+$dsn = "mysql:host=localhost;dbname=test";
+$con = new PDO($dsn,"root","xyzzy");
+$content="people's identities";
+$_content = $con->quote($content);
+$query_insert = "insert into test (`f1`) values($_content)"; 
+$con->query($query_insert);
+
+不可以这样写
+$query_insert = "insert into test (`f1`) values('$_content')"; 
+$con->query($query_insert);
+不可以
+$query_insert = "insert
+</pre>
 
 
