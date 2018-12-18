@@ -9,14 +9,10 @@ type, content两个字段相同，意味着可能是相同的英文单词，不�
 
 date由程序自动在写入数据或更新数据时，产生。
 
-
-
-
-
 知识点：
 1.数据库
 UPDATE语法可以用新值更新原有表行中的各列。SET子句指示要修改哪些列和要给予哪些值。WHERE子句指定应更新哪些行。如果没有WHERE子句，则更新所有的行。
-
+<pre>
 CREATE database `english`;
 USE  `english`;
 CREATE TABLE `english` (
@@ -28,7 +24,7 @@ CREATE TABLE `english` (
       `source` VARCHAR(500) NOT NULL DEFAULT "dictionary" COMMENT '来源或url',
       UNIQUE KEY  (`content`,`type`),
       PRIMARY KEY (`id`)) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
+</pre>
 由于设置了UNIQUE KEY  (`content`,`type`)
 更新的时候，
 
@@ -42,8 +38,9 @@ UNIQUE KEY  (`content`,`type`),又将导致无法写入数据库，因此报错�
 update english SET `date`='$date',`meaning`='$meaning',`source`='$source' where `content`='$content' and`type`='$type'";
 
 导入mysql脚本
+<pre>
 mysql -u root -p  < english.sql
-
+</pre>
 
 2.html文件
 2.1
@@ -94,6 +91,7 @@ console.log("haha");
 
 3.2 formData传递表单与处理
 3.2.1 传递
+<pre>
 var formData = new FormData( document.querySelector("form") )
 var elements = document.getElementsByTagName("form");
 var formData = new FormData(); 
@@ -107,7 +105,7 @@ var mySelect = document.getElementById("type");
 var index = mySelect.selectedIndex;
 var svalue = mySelect.options[index].value;
 var sname = "type";
-
+</pre>
 3.2.2
 php收到formData后，与普通的submit的数据一样，$_POST,extract($_POST)
 
@@ -116,7 +114,7 @@ http://hwy.local/wp/?p=4772
 
 3.4 xmlHttp.onreadystatechange的写法和顺序
 写法1：局部变量方式
-
+<pre>
 function ready(xmlHttp)
 {        
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
@@ -140,7 +138,7 @@ function sendData()
 
 ob = document.getElementById("submit"); 
 ob.addEventListener("click",sendData);
-
+</pre>
 要点：xmlHttp作为局部变量，并传递给其他函数。
 不可以写成   
     xmlHttp.onreadystatechange =  ready();
@@ -153,6 +151,7 @@ xmlHttp作为局部变量，ready函数中无法调用。
 xmlHttp.onreadystatechange是一个事件，ready(xmlHttp)是一个函数的值，这里需要的是将一个函数赋值给事件。
 
 写法2：全局变量方式
+<pre>
 var xmlHttp
 function ready()
 {        
@@ -175,7 +174,7 @@ function sendData()
 
 ob = document.getElementById("submit"); 
 ob.addEventListener("click",sendData);
-
+</pre>
 注意，此时   function sendData 里面的语句，不可以是
 var xmlHttp = new XMLHttpRequest();
 函数里面的  var xmlHttp = new XMLHttpRequest();  将使得xmlHttp称为一个局部变量，导致ready函数无法调用。
@@ -221,13 +220,14 @@ php
 document.cookie="flag_update="+2;
 
 读取cookie
-
+<pre>
         var cookies = document.cookie;
         var list = cookies.split("; ");         
         for(var i = 0; i < list.length; i++) {
             arr = list[i].split("=");  
             arr[0]
             arr[1] 
+</pre>
 5.数据显示
 textarea中是字符串，按照文本文件来显示
 \n表示换行
@@ -252,3 +252,17 @@ object   ob_selectData
 flag的取值可以不写出来
 document.cookie = "flag" + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
 无论flag的值是多少，它的cookie都已经被删除
+
+11.auto_increment
+创建数据表时
+CREATE TABLE `english` (
+  `source` varchar(500) NOT NULL DEFAULT 'dictionary' COMMENT '来源或url',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 
+
+插入数据后，
+show create table `english`,此时的auto_increment将对应下一个id值
+如果已经插入了20条记录，此时show create table `english` 将显示21
+
+
+
